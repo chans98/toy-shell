@@ -1,8 +1,8 @@
 # toy-shell
-ls
+ADD 'ls' command
 
-exit
+ADD 'exit' command
 
-pwd
+ADD 'pwd' command
 
 OS environment - WSL2
