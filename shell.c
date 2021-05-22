@@ -59,3 +59,72 @@ int main(void)
     }
     return 0;
 }
+//ls
+void 
+ls(void)
+{
+
+char *path;
+DIR *dp;
+
+path = (argc==0)? "." : argv[0];
+
+if((dp = opendir(path)) ==NULL) 
+PRINT_ERR_RET();
+
+
+if(optc==0) 
+print_name(dp); 
+else 
+print_detail(dp,path); 
+closedir(dp);
+printf("\n"); 
+}
+
+//exit
+int main()
+{
+    int pid;
+    int status;
+    int spid;
+    pid = fork();
+
+    if (pid == 0)
+    {
+        sleep(5);
+        printf("I will be back %d\n", getpid());
+        return 1;
+    }
+
+    else if(pid > 0)
+    {
+        printf("Im parent %d\n", getpid());
+        printf("Press any key and wait\n");
+        getchar();
+        spid = wait(&status);
+        printf("child process wait success \n");
+        printf("PID         : %d\n", spid);
+        printf("Exit Value  : %d\n", WEXITSTATUS(status));
+        printf("Exit Stat   : %d\n", WIFEXITED(status));
+    }
+    else
+    {
+        perror("fork error :");
+    }
+}
+
+//pwd
+//#include <stdio.h>
+//#include <unistd.h>
+ 
+int main()
+{
+    char cwd[1024];
+    getcwd(cwd, sizeof(cwd));
+    printf("%s\n",cwd);
+    chdir("test_folder");
+    getcwd(cwd, sizeof(cwd));
+    printf("%s\n",cwd);
+ 
+    return 0;
+}
